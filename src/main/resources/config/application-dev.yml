@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/appbilling
+    url: jdbc:postgresql://appbilling-basedatos.postgres.database.azure.com/appbilling
     username: postgres
     password: Vl448056*
     hikari:
