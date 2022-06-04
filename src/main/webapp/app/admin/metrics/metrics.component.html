@@ -1,0 +1,51 @@
+<div>
+  <h2>
+    <span id="metrics-page-heading" apblngTranslate="metrics.title" data-cy="metricsPageHeading">Application Metrics</span>
+
+    <button class="btn btn-primary float-end" (click)="refresh()">
+      <fa-icon icon="sync"></fa-icon> <span apblngTranslate="metrics.refresh.button">Refresh</span>
+    </button>
+  </h2>
+
+  <h3 apblngTranslate="metrics.jvm.title">JVM Metrics</h3>
+
+  <div class="row" *ngIf="metrics && !updatingMetrics">
+    <apblng-jvm-memory class="col-md-4" [updating]="updatingMetrics" [jvmMemoryMetrics]="metrics.jvm"></apblng-jvm-memory>
+
+    <apblng-jvm-threads class="col-md-4" [threads]="threads"></apblng-jvm-threads>
+
+    <apblng-metrics-system class="col-md-4" [updating]="updatingMetrics" [systemMetrics]="metrics.processMetrics"></apblng-metrics-system>
+  </div>
+
+  <apblng-metrics-garbagecollector
+    *ngIf="metrics && metricsKeyExists('garbageCollector')"
+    [updating]="updatingMetrics"
+    [garbageCollectorMetrics]="metrics.garbageCollector"
+  ></apblng-metrics-garbagecollector>
+
+  <div class="well well-lg" *ngIf="updatingMetrics" apblngTranslate="metrics.updating">Updating...</div>
+
+  <apblng-metrics-request
+    *ngIf="metrics && metricsKeyExists('http.server.requests')"
+    [updating]="updatingMetrics"
+    [requestMetrics]="metrics['http.server.requests']"
+  ></apblng-metrics-request>
+
+  <apblng-metrics-endpoints-requests
+    *ngIf="metrics && metricsKeyExists('services')"
+    [updating]="updatingMetrics"
+    [endpointsRequestsMetrics]="metrics.services"
+  ></apblng-metrics-endpoints-requests>
+
+  <apblng-metrics-cache
+    *ngIf="metrics && metricsKeyExists('cache')"
+    [updating]="updatingMetrics"
+    [cacheMetrics]="metrics.cache"
+  ></apblng-metrics-cache>
+
+  <apblng-metrics-datasource
+    *ngIf="metrics && metricsKeyExistsAndObjectNotEmpty('databases')"
+    [updating]="updatingMetrics"
+    [datasourceMetrics]="metrics.databases"
+  ></apblng-metrics-datasource>
+</div>

@@ -1,0 +1,33 @@
+{
+  "appbillingApp": {
+    "invoice": {
+      "home": {
+        "title": "Invoices",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Invoice",
+        "createOrEditLabel": "Crear o editar Invoice",
+        "notFound": "Ningún Invoices encontrado"
+      },
+      "created": "Un nuevo Invoice ha sido creado con el identificador {{ param }}",
+      "updated": "Un Invoice ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Invoice ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Invoice {{ id }}?"
+      },
+      "detail": {
+        "title": "Invoice"
+      },
+      "id": "ID",
+      "dateInvoice": "Date Invoice",
+      "socialReason": "Social Reason",
+      "clientAddress": "Client Address",
+      "phoneNumber": "Phone Number",
+      "quantity": "Quantity",
+      "priceServices": "Price Services",
+      "totalValueServices": "Total Value Services",
+      "totalIva": "Total Iva",
+      "netValues": "Net Values",
+      "customer": "Customer"
+    }
+  }
+}

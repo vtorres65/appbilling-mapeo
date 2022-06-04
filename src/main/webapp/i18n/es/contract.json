@@ -1,0 +1,29 @@
+{
+  "appbillingApp": {
+    "contract": {
+      "home": {
+        "title": "Contracts",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Contract",
+        "createOrEditLabel": "Crear o editar Contract",
+        "notFound": "Ningún Contracts encontrado"
+      },
+      "created": "Un nuevo Contract ha sido creado con el identificador {{ param }}",
+      "updated": "Un Contract ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Contract ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Contract {{ id }}?"
+      },
+      "detail": {
+        "title": "Contract"
+      },
+      "id": "ID",
+      "dateInit": "Date Init",
+      "dateFinal": "Date Final",
+      "contractTerm": "Contract Term",
+      "contractValue": "Contract Value",
+      "statusContract": "Status Contract",
+      "customer": "Customer"
+    }
+  }
+}

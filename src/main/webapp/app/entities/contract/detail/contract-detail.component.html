@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="contract">
+      <h2 data-cy="contractDetailsHeading"><span apblngTranslate="appbillingApp.contract.detail.title">Contract</span></h2>
+
+      <hr />
+
+      <apblng-alert-error></apblng-alert-error>
+
+      <apblng-alert></apblng-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span apblngTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ contract.id }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.contract.dateInit">Date Init</span></dt>
+        <dd>
+          <span>{{ contract.dateInit | formatMediumDate }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.contract.dateFinal">Date Final</span></dt>
+        <dd>
+          <span>{{ contract.dateFinal | formatMediumDate }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.contract.contractTerm">Contract Term</span></dt>
+        <dd>
+          <span>{{ contract.contractTerm }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.contract.contractValue">Contract Value</span></dt>
+        <dd>
+          <span>{{ contract.contractValue }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.contract.statusContract">Status Contract</span></dt>
+        <dd>
+          <span apblngTranslate="{{ 'appbillingApp.State.' + contract.statusContract }}">{{ contract.statusContract }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span apblngTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/contract', contract.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span apblngTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

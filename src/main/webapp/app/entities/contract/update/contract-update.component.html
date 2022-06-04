@@ -1,0 +1,181 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="apblng-contract-heading"
+        data-cy="ContractCreateUpdateHeading"
+        apblngTranslate="appbillingApp.contract.home.createOrEditLabel"
+      >
+        Create or edit a Contract
+      </h2>
+
+      <div>
+        <apblng-alert-error></apblng-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" apblngTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.contract.dateInit" for="field_dateInit">Date Init</label>
+          <div class="input-group">
+            <input
+              id="field_dateInit"
+              data-cy="dateInit"
+              type="text"
+              class="form-control"
+              name="dateInit"
+              ngbDatepicker
+              #dateInitDp="ngbDatepicker"
+              formControlName="dateInit"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateInitDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('dateInit')!.invalid && (editForm.get('dateInit')!.dirty || editForm.get('dateInit')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateInit')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.contract.dateFinal" for="field_dateFinal">Date Final</label>
+          <div class="input-group">
+            <input
+              id="field_dateFinal"
+              data-cy="dateFinal"
+              type="text"
+              class="form-control"
+              name="dateFinal"
+              ngbDatepicker
+              #dateFinalDp="ngbDatepicker"
+              formControlName="dateFinal"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateFinalDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+          <div *ngIf="editForm.get('dateFinal')!.invalid && (editForm.get('dateFinal')!.dirty || editForm.get('dateFinal')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateFinal')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.contract.contractTerm" for="field_contractTerm">Contract Term</label>
+          <input
+            type="number"
+            class="form-control"
+            name="contractTerm"
+            id="field_contractTerm"
+            data-cy="contractTerm"
+            formControlName="contractTerm"
+          />
+          <div
+            *ngIf="editForm.get('contractTerm')!.invalid && (editForm.get('contractTerm')!.dirty || editForm.get('contractTerm')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('contractTerm')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('contractTerm')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.contract.contractValue" for="field_contractValue">Contract Value</label>
+          <input
+            type="number"
+            class="form-control"
+            name="contractValue"
+            id="field_contractValue"
+            data-cy="contractValue"
+            formControlName="contractValue"
+          />
+          <div
+            *ngIf="
+              editForm.get('contractValue')!.invalid && (editForm.get('contractValue')!.dirty || editForm.get('contractValue')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('contractValue')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('contractValue')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.contract.statusContract" for="field_statusContract"
+            >Status Contract</label
+          >
+          <select
+            class="form-control"
+            name="statusContract"
+            formControlName="statusContract"
+            id="field_statusContract"
+            data-cy="statusContract"
+          >
+            <option [ngValue]="null">{{ 'appbillingApp.State.null' | translate }}</option>
+            <option *ngFor="let state of stateValues" [value]="state">{{ 'appbillingApp.State.' + state | translate }}</option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('statusContract')!.invalid && (editForm.get('statusContract')!.dirty || editForm.get('statusContract')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('statusContract')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span apblngTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span apblngTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

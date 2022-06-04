@@ -1,0 +1,128 @@
+<div>
+  <h2 id="page-heading" data-cy="CustomerHeading">
+    <span apblngTranslate="appbillingApp.customer.home.title">Customers</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span apblngTranslate="appbillingApp.customer.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-customer"
+        [routerLink]="['/customer/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span apblngTranslate="appbillingApp.customer.home.createLabel"> Create a new Customer </span>
+      </button>
+    </div>
+  </h2>
+
+  <apblng-alert-error></apblng-alert-error>
+
+  <apblng-alert></apblng-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="customers?.length === 0">
+    <span apblngTranslate="appbillingApp.customer.home.notFound">No customers found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="customers && customers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr apblngSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" apblngSortBy="id"><span apblngTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" apblngSortBy="socialReason">
+            <span apblngTranslate="appbillingApp.customer.socialReason">Social Reason</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="nameContact">
+            <span apblngTranslate="appbillingApp.customer.nameContact">Name Contact</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="email">
+            <span apblngTranslate="appbillingApp.customer.email">Email</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="phoneNumber">
+            <span apblngTranslate="appbillingApp.customer.phoneNumber">Phone Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="statusClient">
+            <span apblngTranslate="appbillingApp.customer.statusClient">Status Client</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="user.login">
+            <span apblngTranslate="appbillingApp.customer.user">User</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="contract.id">
+            <span apblngTranslate="appbillingApp.customer.contract">Contract</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/customer', customer.id, 'view']">{{ customer.id }}</a>
+          </td>
+          <td>{{ customer.socialReason }}</td>
+          <td>{{ customer.nameContact }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.phoneNumber }}</td>
+          <td apblngTranslate="{{ 'appbillingApp.State.' + customer.statusClient }}">{{ customer.statusClient }}</td>
+          <td>
+            {{ customer.user?.login }}
+          </td>
+          <td>
+            <div *ngIf="customer.contract">
+              <a [routerLink]="['/contract', customer.contract?.id, 'view']">{{ customer.contract?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/customer', customer.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/customer', customer.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(customer)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="customers && customers.length > 0">
+    <div class="d-flex justify-content-center">
+      <apblng-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></apblng-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

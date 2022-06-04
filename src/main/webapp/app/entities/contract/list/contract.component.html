@@ -1,0 +1,114 @@
+<div>
+  <h2 id="page-heading" data-cy="ContractHeading">
+    <span apblngTranslate="appbillingApp.contract.home.title">Contracts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span apblngTranslate="appbillingApp.contract.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-contract"
+        [routerLink]="['/contract/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span apblngTranslate="appbillingApp.contract.home.createLabel"> Create a new Contract </span>
+      </button>
+    </div>
+  </h2>
+
+  <apblng-alert-error></apblng-alert-error>
+
+  <apblng-alert></apblng-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="contracts?.length === 0">
+    <span apblngTranslate="appbillingApp.contract.home.notFound">No contracts found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="contracts && contracts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr apblngSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" apblngSortBy="id"><span apblngTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" apblngSortBy="dateInit">
+            <span apblngTranslate="appbillingApp.contract.dateInit">Date Init</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="dateFinal">
+            <span apblngTranslate="appbillingApp.contract.dateFinal">Date Final</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="contractTerm">
+            <span apblngTranslate="appbillingApp.contract.contractTerm">Contract Term</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="contractValue">
+            <span apblngTranslate="appbillingApp.contract.contractValue">Contract Value</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="statusContract">
+            <span apblngTranslate="appbillingApp.contract.statusContract">Status Contract</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contract of contracts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/contract', contract.id, 'view']">{{ contract.id }}</a>
+          </td>
+          <td>{{ contract.dateInit | formatMediumDate }}</td>
+          <td>{{ contract.dateFinal | formatMediumDate }}</td>
+          <td>{{ contract.contractTerm }}</td>
+          <td>{{ contract.contractValue }}</td>
+          <td apblngTranslate="{{ 'appbillingApp.State.' + contract.statusContract }}">{{ contract.statusContract }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/contract', contract.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/contract', contract.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(contract)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="contracts && contracts.length > 0">
+    <div class="d-flex justify-content-center">
+      <apblng-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></apblng-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

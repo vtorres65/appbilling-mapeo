@@ -1,0 +1,236 @@
+<div>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <h1 apblngTranslate="register.title" data-cy="registerTitle">Registration</h1>
+
+      <div class="alert alert-success" *ngIf="success" apblngTranslate="register.messages.success">
+        <strong>Registration saved!</strong> Please check your email for confirmation.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="error" apblngTranslate="register.messages.error.fail">
+        <strong>Registration failed!</strong> Please try again later.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorUserExists" apblngTranslate="register.messages.error.userexists">
+        <strong>Login name already registered!</strong> Please choose another one.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="errorEmailExists" apblngTranslate="register.messages.error.emailexists">
+        <strong>Email is already in use!</strong> Please choose another one.
+      </div>
+
+      <div class="alert alert-danger" *ngIf="doNotMatch" apblngTranslate="global.messages.error.dontmatch">
+        The password and its confirmation do not match!
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8">
+      <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+        <div class="mb-3">
+          <label class="form-label" for="login" apblngTranslate="global.form.username.label">Username</label>
+          <input
+            type="text"
+            class="form-control"
+            id="login"
+            name="login"
+            placeholder="{{ 'global.form.username.placeholder' | translate }}"
+            formControlName="login"
+            data-cy="username"
+            #login
+          />
+
+          <div *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('login')?.errors?.required"
+              apblngTranslate="register.messages.validate.login.required"
+            >
+              Your username is required.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('login')?.errors?.minlength"
+              apblngTranslate="register.messages.validate.login.minlength"
+            >
+              Your username is required to be at least 1 character.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('login')?.errors?.maxlength"
+              apblngTranslate="register.messages.validate.login.maxlength"
+            >
+              Your username cannot be longer than 50 characters.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('login')?.errors?.pattern"
+              apblngTranslate="register.messages.validate.login.pattern"
+            >
+              Your username can only contain letters and digits.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="email" apblngTranslate="global.form.email.label">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="{{ 'global.form.email.placeholder' | translate }}"
+            formControlName="email"
+            data-cy="email"
+          />
+
+          <div *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('email')?.errors?.required"
+              apblngTranslate="global.messages.validate.email.required"
+            >
+              Your email is required.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('email')?.errors?.invalid"
+              apblngTranslate="global.messages.validate.email.invalid"
+            >
+              Your email is invalid.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('email')?.errors?.minlength"
+              apblngTranslate="global.messages.validate.email.minlength"
+            >
+              Your email is required to be at least 5 characters.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('email')?.errors?.maxlength"
+              apblngTranslate="global.messages.validate.email.maxlength"
+            >
+              Your email cannot be longer than 100 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="password" apblngTranslate="global.form.newpassword.label">New password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="{{ 'global.form.newpassword.placeholder' | translate }}"
+            formControlName="password"
+            data-cy="firstPassword"
+          />
+
+          <div
+            *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('password')?.errors?.required"
+              apblngTranslate="global.messages.validate.newpassword.required"
+            >
+              Your password is required.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('password')?.errors?.minlength"
+              apblngTranslate="global.messages.validate.newpassword.minlength"
+            >
+              Your password is required to be at least 4 characters.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('password')?.errors?.maxlength"
+              apblngTranslate="global.messages.validate.newpassword.maxlength"
+            >
+              Your password cannot be longer than 50 characters.
+            </small>
+          </div>
+
+          <apblng-password-strength-bar [passwordToCheck]="registerForm.get('password')!.value"></apblng-password-strength-bar>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="confirmPassword" apblngTranslate="global.form.confirmpassword.label"
+            >New password confirmation</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="{{ 'global.form.confirmpassword.placeholder' | translate }}"
+            formControlName="confirmPassword"
+            data-cy="secondPassword"
+          />
+
+          <div
+            *ngIf="
+              registerForm.get('confirmPassword')!.invalid &&
+              (registerForm.get('confirmPassword')!.dirty || registerForm.get('confirmPassword')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('confirmPassword')?.errors?.required"
+              apblngTranslate="global.messages.validate.confirmpassword.required"
+            >
+              Your confirmation password is required.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('confirmPassword')?.errors?.minlength"
+              apblngTranslate="global.messages.validate.confirmpassword.minlength"
+            >
+              Your confirmation password is required to be at least 4 characters.
+            </small>
+
+            <small
+              class="form-text text-danger"
+              *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength"
+              apblngTranslate="global.messages.validate.confirmpassword.maxlength"
+            >
+              Your confirmation password cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="registerForm.invalid"
+          class="btn btn-primary"
+          apblngTranslate="register.form.button"
+          data-cy="submit"
+        >
+          Register
+        </button>
+      </form>
+
+      <div class="mt-3 alert alert-warning">
+        <span apblngTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+        <a class="alert-link" routerLink="/login" apblngTranslate="global.messages.info.authenticated.link">sign in</a
+        ><span apblngTranslate="global.messages.info.authenticated.suffix"
+          >, you can try the default accounts:<br />- Administrator (login="admin" and password="admin") <br />- User (login="user" and
+          password="user").</span
+        >
+      </div>
+    </div>
+  </div>
+</div>

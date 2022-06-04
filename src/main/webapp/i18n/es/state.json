@@ -1,0 +1,9 @@
+{
+  "appbillingApp": {
+    "State": {
+      "null": "",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo"
+    }
+  }
+}

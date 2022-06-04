@@ -1,0 +1,297 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="apblng-invoice-heading" data-cy="InvoiceCreateUpdateHeading" apblngTranslate="appbillingApp.invoice.home.createOrEditLabel">
+        Create or edit a Invoice
+      </h2>
+
+      <div>
+        <apblng-alert-error></apblng-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" apblngTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.dateInvoice" for="field_dateInvoice">Date Invoice</label>
+          <div class="input-group">
+            <input
+              id="field_dateInvoice"
+              data-cy="dateInvoice"
+              type="text"
+              class="form-control"
+              name="dateInvoice"
+              ngbDatepicker
+              #dateInvoiceDp="ngbDatepicker"
+              formControlName="dateInvoice"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dateInvoiceDp.toggle()">
+              <fa-icon icon="calendar-alt"></fa-icon>
+            </button>
+          </div>
+          <div *ngIf="editForm.get('dateInvoice')!.invalid && (editForm.get('dateInvoice')!.dirty || editForm.get('dateInvoice')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('dateInvoice')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.socialReason" for="field_socialReason">Social Reason</label>
+          <input
+            type="text"
+            class="form-control"
+            name="socialReason"
+            id="field_socialReason"
+            data-cy="socialReason"
+            formControlName="socialReason"
+          />
+          <div
+            *ngIf="editForm.get('socialReason')!.invalid && (editForm.get('socialReason')!.dirty || editForm.get('socialReason')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('socialReason')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('socialReason')?.errors?.maxlength"
+              apblngTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.clientAddress" for="field_clientAddress">Client Address</label>
+          <input
+            type="text"
+            class="form-control"
+            name="clientAddress"
+            id="field_clientAddress"
+            data-cy="clientAddress"
+            formControlName="clientAddress"
+          />
+          <div
+            *ngIf="
+              editForm.get('clientAddress')!.invalid && (editForm.get('clientAddress')!.dirty || editForm.get('clientAddress')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clientAddress')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('clientAddress')?.errors?.maxlength"
+              apblngTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 200 }"
+            >
+              This field cannot be longer than 200 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.phoneNumber" for="field_phoneNumber">Phone Number</label>
+          <input
+            type="number"
+            class="form-control"
+            name="phoneNumber"
+            id="field_phoneNumber"
+            data-cy="phoneNumber"
+            formControlName="phoneNumber"
+          />
+          <div *ngIf="editForm.get('phoneNumber')!.invalid && (editForm.get('phoneNumber')!.dirty || editForm.get('phoneNumber')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('phoneNumber')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('phoneNumber')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.quantity" for="field_quantity">Quantity</label>
+          <input type="number" class="form-control" name="quantity" id="field_quantity" data-cy="quantity" formControlName="quantity" />
+          <div *ngIf="editForm.get('quantity')!.invalid && (editForm.get('quantity')!.dirty || editForm.get('quantity')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('quantity')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('quantity')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.priceServices" for="field_priceServices">Price Services</label>
+          <input
+            type="number"
+            class="form-control"
+            name="priceServices"
+            id="field_priceServices"
+            data-cy="priceServices"
+            formControlName="priceServices"
+          />
+          <div
+            *ngIf="
+              editForm.get('priceServices')!.invalid && (editForm.get('priceServices')!.dirty || editForm.get('priceServices')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('priceServices')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('priceServices')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.totalValueServices" for="field_totalValueServices"
+            >Total Value Services</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalValueServices"
+            id="field_totalValueServices"
+            data-cy="totalValueServices"
+            formControlName="totalValueServices"
+          />
+          <div
+            *ngIf="
+              editForm.get('totalValueServices')!.invalid &&
+              (editForm.get('totalValueServices')!.dirty || editForm.get('totalValueServices')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('totalValueServices')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('totalValueServices')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.totalIva" for="field_totalIva">Total Iva</label>
+          <input type="number" class="form-control" name="totalIva" id="field_totalIva" data-cy="totalIva" formControlName="totalIva" />
+          <div *ngIf="editForm.get('totalIva')!.invalid && (editForm.get('totalIva')!.dirty || editForm.get('totalIva')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('totalIva')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('totalIva')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.netValues" for="field_netValues">Net Values</label>
+          <input type="number" class="form-control" name="netValues" id="field_netValues" data-cy="netValues" formControlName="netValues" />
+          <div *ngIf="editForm.get('netValues')!.invalid && (editForm.get('netValues')!.dirty || editForm.get('netValues')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('netValues')?.errors?.required"
+              apblngTranslate="entity.validation.required"
+            >
+              This field is required.
+            </small>
+            <small
+              class="form-text text-danger"
+              [hidden]="!editForm.get('netValues')?.errors?.number"
+              apblngTranslate="entity.validation.number"
+            >
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" apblngTranslate="appbillingApp.invoice.customer" for="field_customer">Customer</label>
+          <select class="form-control" id="field_customer" data-cy="customer" name="customer" formControlName="customer">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="customerOption.id === editForm.get('customer')!.value?.id ? editForm.get('customer')!.value : customerOption"
+              *ngFor="let customerOption of customersSharedCollection; trackBy: trackCustomerById"
+            >
+              {{ customerOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span apblngTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span apblngTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

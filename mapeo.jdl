@@ -1,0 +1,79 @@
+
+application {
+  config {
+    baseName appbilling
+    applicationType monolith
+    packageName co.edu.sena
+    authenticationType jwt
+    devDatabaseType postgresql
+    prodDatabaseType postgresql
+    cacheProvider no
+    buildTool maven
+    clientFramework angularX
+    enableTranslation true
+    nativeLanguage es
+    languages [en, es]
+    websocket false
+    jhiPrefix apblng
+    reactive false
+    serverPort 8080
+    searchEngine false
+    clientTheme solar
+    clientThemeVariant primary
+  }
+entities *
+}
+
+
+enum State {
+	ACTIVE (Activo)
+    INACTIVE (Inactivo) 
+  	
+}
+
+entity Customer {
+	socialReason String required maxlength(50)
+    nameContact String required maxlength (50)
+    email String required maxlength (200)
+    phoneNumber	Integer required
+    statusClient State required   
+    
+}
+
+
+entity Invoice {
+	dateInvoice LocalDate required
+    socialReason String required maxlength(50)
+    clientAddress String required maxlength(200)
+    phoneNumber	Integer required
+   	quantity Integer required
+    priceServices Double required
+    totalValueServices Double required
+    totalIva BigDecimal required
+    netValues	Double	required
+
+}
+
+entity Contract {
+	dateInit LocalDate required
+    dateFinal LocalDate required
+    contractTerm Integer required
+    contractValue Double required
+   	statusContract State required 
+
+}
+
+relationship OneToMany {
+  Customer to Invoice{Customer}
+  Contract to Customer{Contract}
+  
+}
+
+relationship OneToOne {
+  Customer{user(login) required} to User
+
+}
+
+dto * with mapstruct
+service * with serviceImpl //SOLID
+paginate * with pagination

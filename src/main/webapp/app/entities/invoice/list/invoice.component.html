@@ -1,0 +1,138 @@
+<div>
+  <h2 id="page-heading" data-cy="InvoiceHeading">
+    <span apblngTranslate="appbillingApp.invoice.home.title">Invoices</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span apblngTranslate="appbillingApp.invoice.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-invoice"
+        [routerLink]="['/invoice/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span apblngTranslate="appbillingApp.invoice.home.createLabel"> Create a new Invoice </span>
+      </button>
+    </div>
+  </h2>
+
+  <apblng-alert-error></apblng-alert-error>
+
+  <apblng-alert></apblng-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="invoices?.length === 0">
+    <span apblngTranslate="appbillingApp.invoice.home.notFound">No invoices found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="invoices && invoices.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr apblngSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="loadPage()">
+          <th scope="col" apblngSortBy="id"><span apblngTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" apblngSortBy="dateInvoice">
+            <span apblngTranslate="appbillingApp.invoice.dateInvoice">Date Invoice</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="socialReason">
+            <span apblngTranslate="appbillingApp.invoice.socialReason">Social Reason</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="clientAddress">
+            <span apblngTranslate="appbillingApp.invoice.clientAddress">Client Address</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="phoneNumber">
+            <span apblngTranslate="appbillingApp.invoice.phoneNumber">Phone Number</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="quantity">
+            <span apblngTranslate="appbillingApp.invoice.quantity">Quantity</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="priceServices">
+            <span apblngTranslate="appbillingApp.invoice.priceServices">Price Services</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="totalValueServices">
+            <span apblngTranslate="appbillingApp.invoice.totalValueServices">Total Value Services</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="totalIva">
+            <span apblngTranslate="appbillingApp.invoice.totalIva">Total Iva</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="netValues">
+            <span apblngTranslate="appbillingApp.invoice.netValues">Net Values</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" apblngSortBy="customer.id">
+            <span apblngTranslate="appbillingApp.invoice.customer">Customer</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let invoice of invoices; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/invoice', invoice.id, 'view']">{{ invoice.id }}</a>
+          </td>
+          <td>{{ invoice.dateInvoice | formatMediumDate }}</td>
+          <td>{{ invoice.socialReason }}</td>
+          <td>{{ invoice.clientAddress }}</td>
+          <td>{{ invoice.phoneNumber }}</td>
+          <td>{{ invoice.quantity }}</td>
+          <td>{{ invoice.priceServices }}</td>
+          <td>{{ invoice.totalValueServices }}</td>
+          <td>{{ invoice.totalIva }}</td>
+          <td>{{ invoice.netValues }}</td>
+          <td>
+            <div *ngIf="invoice.customer">
+              <a [routerLink]="['/customer', invoice.customer?.id, 'view']">{{ invoice.customer?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/invoice', invoice.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/invoice', invoice.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(invoice)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" apblngTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="invoices && invoices.length > 0">
+    <div class="d-flex justify-content-center">
+      <apblng-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></apblng-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

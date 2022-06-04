@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="invoice">
+      <h2 data-cy="invoiceDetailsHeading"><span apblngTranslate="appbillingApp.invoice.detail.title">Invoice</span></h2>
+
+      <hr />
+
+      <apblng-alert-error></apblng-alert-error>
+
+      <apblng-alert></apblng-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span apblngTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ invoice.id }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.dateInvoice">Date Invoice</span></dt>
+        <dd>
+          <span>{{ invoice.dateInvoice | formatMediumDate }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.socialReason">Social Reason</span></dt>
+        <dd>
+          <span>{{ invoice.socialReason }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.clientAddress">Client Address</span></dt>
+        <dd>
+          <span>{{ invoice.clientAddress }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.phoneNumber">Phone Number</span></dt>
+        <dd>
+          <span>{{ invoice.phoneNumber }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.quantity">Quantity</span></dt>
+        <dd>
+          <span>{{ invoice.quantity }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.priceServices">Price Services</span></dt>
+        <dd>
+          <span>{{ invoice.priceServices }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.totalValueServices">Total Value Services</span></dt>
+        <dd>
+          <span>{{ invoice.totalValueServices }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.totalIva">Total Iva</span></dt>
+        <dd>
+          <span>{{ invoice.totalIva }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.netValues">Net Values</span></dt>
+        <dd>
+          <span>{{ invoice.netValues }}</span>
+        </dd>
+        <dt><span apblngTranslate="appbillingApp.invoice.customer">Customer</span></dt>
+        <dd>
+          <div *ngIf="invoice.customer">
+            <a [routerLink]="['/customer', invoice.customer?.id, 'view']">{{ invoice.customer?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span apblngTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/invoice', invoice.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span apblngTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

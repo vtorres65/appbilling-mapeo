@@ -1,0 +1,29 @@
+{
+  "appbillingApp": {
+    "contract": {
+      "home": {
+        "title": "Contracts",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Contract",
+        "createOrEditLabel": "Create or edit a Contract",
+        "notFound": "No Contracts found"
+      },
+      "created": "A new Contract is created with identifier {{ param }}",
+      "updated": "A Contract is updated with identifier {{ param }}",
+      "deleted": "A Contract is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Contract {{ id }}?"
+      },
+      "detail": {
+        "title": "Contract"
+      },
+      "id": "ID",
+      "dateInit": "Date Init",
+      "dateFinal": "Date Final",
+      "contractTerm": "Contract Term",
+      "contractValue": "Contract Value",
+      "statusContract": "Status Contract",
+      "customer": "Customer"
+    }
+  }
+}
