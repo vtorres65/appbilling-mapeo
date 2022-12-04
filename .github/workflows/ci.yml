@@ -46,7 +46,7 @@ jobs:
           mvn compiler:compile -Pprod
       - name: Test
         run: |
-          mvn clean verify -Pprod -Dmaven.test.failure.ignore=true
+          mvn clean verify -Pprod
       - name: Sonarqube
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
