@@ -23,6 +23,10 @@
     <!-- jhipster-needle-distribution-management -->
 
     <properties>
+        <!-- SonarCloud Config -->
+        <sonar.organization>vtorres65</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
         <!-- Build properties -->
         <maven.version>3.8.5</maven.version>
         <java.version>11</java.version>

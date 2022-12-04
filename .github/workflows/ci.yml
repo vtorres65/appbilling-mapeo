@@ -1,0 +1,55 @@
+name: Continuous Integration
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  ci:
+    name: Continuous Integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3.6.0
+        with:
+          distribution: 'temurin'
+          java-version: 17
+      - name: Cache Maven packages
+        uses: actions/cache@v3.0.11
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Cache folder target
+        uses: actions/cache@v3.0.11
+        with:
+          path: target
+          key: ${{ runner.os }}-target
+          restore-keys: ${{ runner.os }}-target
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v3.0.11
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Show version Maven and Node
+        run: |
+          mvn --version
+          node -v
+          npm -v
+      - name: Compilar
+        run: |
+          mvn compiler:compile -Pprod
+      - name: Test
+        run: |
+          mvn clean verify -Pprod -Dmaven.test.failure.ignore=true
+      - name: Sonarqube
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=vtorres65_appbilling-mapeo
