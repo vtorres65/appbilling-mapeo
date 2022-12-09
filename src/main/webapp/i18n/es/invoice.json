@@ -2,32 +2,32 @@
   "appbillingApp": {
     "invoice": {
       "home": {
-        "title": "Invoices",
+        "title": "Facturas",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Invoice",
-        "createOrEditLabel": "Crear o editar Invoice",
-        "notFound": "Ningún Invoices encontrado"
+        "createLabel": "Crear nuevo Factura",
+        "createOrEditLabel": "Crear o editar Factura",
+        "notFound": "Ningúna Factura encontrada"
       },
-      "created": "Un nuevo Invoice ha sido creado con el identificador {{ param }}",
-      "updated": "Un Invoice ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Invoice ha sido eliminado con el identificador {{ param }}",
+      "created": "Una nuevo Factura ha sido creado con el identificador {{ param }}",
+      "updated": "Una Factura ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Una Factura ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Invoice {{ id }}?"
+        "question": "¿Seguro que quiere eliminar la Factura {{ id }}?"
       },
       "detail": {
-        "title": "Invoice"
+        "title": "Factura"
       },
       "id": "ID",
-      "dateInvoice": "Date Invoice",
-      "socialReason": "Social Reason",
-      "clientAddress": "Client Address",
-      "phoneNumber": "Phone Number",
-      "quantity": "Quantity",
-      "priceServices": "Price Services",
-      "totalValueServices": "Total Value Services",
-      "totalIva": "Total Iva",
-      "netValues": "Net Values",
-      "customer": "Customer"
+      "dateInvoice": "Fecha de Factura",
+      "socialReason": "Razón Social",
+      "clientAddress": "Dirección del Cliente",
+      "phoneNumber": "Numero Celular",
+      "quantity": "Cantidad de servicios",
+      "priceServices": "Precio del servicio",
+      "totalValueServices": "Total de los servicios",
+      "totalIva": "Total del Iva",
+      "netValues": "Neto total",
+      "customer": "Cliente"
     }
   }
 }

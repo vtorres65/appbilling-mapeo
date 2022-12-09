@@ -7,9 +7,9 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entidades",
-        "customer": "Customer",
-        "invoice": "Invoice",
-        "contract": "Contract",
+        "customer": "Clinete",
+        "invoice": "Factura",
+        "contract": "Contrato",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
