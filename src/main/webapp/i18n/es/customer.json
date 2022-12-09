@@ -2,30 +2,30 @@
   "appbillingApp": {
     "customer": {
       "home": {
-        "title": "Customers",
+        "title": "Clientes",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Customer",
-        "createOrEditLabel": "Crear o editar Customer",
-        "notFound": "Ningún Customers encontrado"
+        "createLabel": "Crear nuevo Cliente",
+        "createOrEditLabel": "Crear o editar Cliente",
+        "notFound": "Ningún Cliente encontrado"
       },
-      "created": "Un nuevo Customer ha sido creado con el identificador {{ param }}",
-      "updated": "Un Customer ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Customer ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Cliente ha sido creado con el identificador {{ param }}",
+      "updated": "Un Cliente ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Cliente ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Customer {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Cliente {{ id }}?"
       },
       "detail": {
-        "title": "Customer"
+        "title": "Cleinte"
       },
       "id": "ID",
       "socialReason": "Social Reason",
-      "nameContact": "Name Contact",
+      "nameContact": "Nombre de Contacto",
       "email": "Email",
-      "phoneNumber": "Phone Number",
-      "statusClient": "Status Client",
-      "user": "User",
-      "invoice": "Invoice",
-      "contract": "Contract"
+      "phoneNumber": "numero de Celular",
+      "statusClient": "Estado del Cleinte",
+      "user": "Usuario",
+      "invoice": "Factura",
+      "contract": "Contacto"
     }
   }
 }

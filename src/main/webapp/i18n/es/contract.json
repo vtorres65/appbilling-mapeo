@@ -2,28 +2,28 @@
   "appbillingApp": {
     "contract": {
       "home": {
-        "title": "Contracts",
+        "title": "Contratos",
         "refreshListLabel": "Refrescar lista",
-        "createLabel": "Crear nuevo Contract",
-        "createOrEditLabel": "Crear o editar Contract",
-        "notFound": "Ningún Contracts encontrado"
+        "createLabel": "Crear nuevo Contrato",
+        "createOrEditLabel": "Crear o editar Contrato",
+        "notFound": "Ningún Contrato encontrado"
       },
-      "created": "Un nuevo Contract ha sido creado con el identificador {{ param }}",
-      "updated": "Un Contract ha sido actualizado con el identificador {{ param }}",
-      "deleted": "Un Contract ha sido eliminado con el identificador {{ param }}",
+      "created": "Un nuevo Contrato ha sido creado con el identificador {{ param }}",
+      "updated": "Un Contrato ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Contrato ha sido eliminado con el identificador {{ param }}",
       "delete": {
-        "question": "¿Seguro que quiere eliminar Contract {{ id }}?"
+        "question": "¿Seguro que quiere eliminar Contrato {{ id }}?"
       },
       "detail": {
-        "title": "Contract"
+        "title": "Contrato"
       },
       "id": "ID",
-      "dateInit": "Date Init",
-      "dateFinal": "Date Final",
-      "contractTerm": "Contract Term",
-      "contractValue": "Contract Value",
-      "statusContract": "Status Contract",
-      "customer": "Customer"
+      "dateInit": "Inicio de fecha",
+      "dateFinal": "Fecha final",
+      "contractTerm": "Duracion del Contrato",
+      "contractValue": "Valor del Contrato",
+      "statusContract": "Estado del Contrato",
+      "customer": "Cliente"
     }
   }
 }
